@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD_js</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="header">
+                <h1>Quản lý người dùng</h1>
+            </div>
+            <div class="handle">
+                <div class="form__section">
+                    <div class="search__form">
+                        <input class="search__input" placeholder="🔍 Tìm kiếm theo tên hoặc email..." type="text"
+                            value="">
+                    </div>
+                    <div class="btn">
+                        <button class="btn btn-primary" id="add-users">Thêm Người Dùng Mới</button>
+                    </div>
+                </div>
+                <div class="users">
+                    <div class="empty-state">
+                        <h3>Chưa có người dùng nào</h3>
+                        <p>Hãy thêm người dùng đầu tiên của bạn!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <dialog class="modal" id="modal-form">
+            <div class="modal-content">
+                <div class="modal__header">
+                    <h2>Thêm người dùng mới</h2>
+                    <button class="close__btn" id="close-modal">×</button>
+                </div>
+                <form id="form">
+                    <div class="form__modal">
+                        <div class="form__group">
+                            <label for="name">Họ và tên*</label>
+                            <input required type="text" id="name-value" value>
+                        </div>
+                        <div class="form__group">
+                            <label for="email">Email*</label>
+                            <input required type="email" id="email-value" value>
+                        </div>
+                        <div class="form__group">
+                            <label for="phone">Số điện thoại</label>
+                            <input required type="tel" id="phone-value" value>
+                        </div>
+                    </div>
+                    <div class="form__btn">
+                        <button type="submit" class="btn btn__primary" id="btn-add">Thêm người dùng</button>
+                        <button type="submit" class="btn btn__secondary" id="btn-cancel">Hủy</button>
+                    </div>
+                </form>
+            </div>
+        </dialog>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
