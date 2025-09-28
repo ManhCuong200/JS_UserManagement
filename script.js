@@ -25,6 +25,7 @@ let dataForm = JSON.parse(localStorage.getItem("data")) || [];
 
 // bắt sự kiện click form
 form.addEventListener("submit", function (e) {
+  // ngăn reload form
   e.preventDefault();
   // check ô input name phải >= 2
   if (name.value.length < 2) {
@@ -67,6 +68,9 @@ addUsers.addEventListener("click", function () {
 
 // bắt sự kiện click closeModal
 closeModal.addEventListener("click", function () {
+  nameError.style.display = "none";
+  phoneError.style.display = "none";
+  form.reset();
   modalForm.close();
 });
 

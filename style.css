@@ -50,46 +50,32 @@ body {
   gap: 10px;
 }
 
-.search__input {
+.search__input,
+.form__group input {
   width: 100%;
   padding: 14px;
   border: none;
   border-radius: 15px;
-  background: #1e1e2e;
-  font-size: 1rem;
-  color: #e0e0e0;
+  background: var(--backgroud-color);
+  font-size: 16px;
+  color: var(--white-color);
   box-shadow: inset 4px 4px 8px #141421, inset -4px -4px 8px #29293d;
   transition: all 0.2s ease-in-out;
 }
 
-.search__input .form__group input {
-  width: 100%;
-  padding: 14px;
-  border: none;
-  border-radius: 15px;
-  background: #1e1e2e;
-  font-size: 1rem;
-  color: #e0e0e0;
-  box-shadow: inset 4px 4px 8px #141421, inset -4px -4px 8px #29293d;
-  transition: all 0.2s ease-in-out;
-}
-
-.btn-primary {
-  color: #a78bfa;
-}
-
+.btn-primary,
 .btn {
   height: 100%;
   padding: 12px 20px;
   border: none;
   border-radius: 15px;
-  font-size: 0.95rem;
+  font-size: 15.2px;
   font-weight: 600;
-  cursor: pointer;
   transition: all 0.2s ease-in-out;
-  background: #1e1e2e;
-  color: #e0e0e0;
+  background: var(--backgroud-color);
   box-shadow: 6px 6px 12px #141421, -6px -6px 12px #29293d;
+  color: #a78bfa;
+  cursor: pointer;
 }
 
 .empty-state {
@@ -106,6 +92,10 @@ body {
   left: 0;
   z-index: 1000;
   background: #0f0f19cc;
+}
+
+.modal::backdrop {
+  background: transparent;
 }
 
 .modal-content {
@@ -184,34 +174,32 @@ body {
   justify-content: flex-end;
 }
 
-.btn {
-  height: 100%;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 15px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  background: #1e1e2e;
-  color: #e0e0e0;
-  box-shadow: 6px 6px 12px #141421, -6px -6px 12px #29293d;
-}
-
 .btn__secondary {
   color: #b9b9ba;
 }
 
-.btn {
-  height: 100%;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 15px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  background: #1e1e2e;
-  color: #e0e0e0;
-  box-shadow: 6px 6px 12px #141421, -6px -6px 12px #29293d;
+@media (max-width: 768px) {
+  body {
+    padding: 0;
+  }
+
+  .container {
+    box-shadow: none;
+  }
+
+  .modal {
+    background: transparent;
+    border: none;
+  }
+
+  .modal::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+  }
+
+  .form__section,
+  .btn-primary {
+    width: 100%;
+    grid-template-columns: 1fr;
+  }
 }
