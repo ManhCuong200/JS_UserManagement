@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+:root {
+  --background-color: #1e1e2e;
+  --white-color: #e0e0e0;
+}
+
 body {
   font-family: Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
   background: #1e1e2e;
@@ -61,6 +66,12 @@ body {
   color: var(--white-color);
   box-shadow: inset 4px 4px 8px #141421, inset -4px -4px 8px #29293d;
   transition: all 0.2s ease-in-out;
+}
+
+.form__group input:focus {
+  outline: none;
+  background: var(--background-color);
+  color: var(--white-color);
 }
 
 .btn-primary,

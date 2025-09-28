@@ -41,6 +41,7 @@ form.addEventListener("submit", function (e) {
   } else {
     nameError.style.display = "none";
   }
+
   // check ô input phone sdt phai 10-11 số
   if (phone.value.length < 10 || phone.value.length > 11) {
     phoneError.style.display = "block";
@@ -53,6 +54,7 @@ form.addEventListener("submit", function (e) {
   if (!isValid) {
     return;
   }
+
   //lấy giá trị của name
   const nameValue = name.value;
   //lấy giá trị của email
