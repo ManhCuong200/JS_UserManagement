@@ -43,6 +43,7 @@
                         <div class="form__group">
                             <label for="name">Họ và tên*</label>
                             <input required type="text" id="name-value" value>
+                            <div class="error-message" id="name-error">Tên phải ≥ 2 ký tự</div>
                         </div>
                         <div class="form__group">
                             <label for="email">Email*</label>
@@ -51,11 +52,12 @@
                         <div class="form__group">
                             <label for="phone">Số điện thoại</label>
                             <input required type="tel" id="phone-value" value>
+                            <div class="error-message" id="phone-error">SĐT phải 10–11 chữ số</div>
                         </div>
                     </div>
                     <div class="form__btn">
                         <button type="submit" class="btn btn__primary" id="btn-add">Thêm người dùng</button>
-                        <button type="submit" class="btn btn__secondary" id="btn-cancel">Hủy</button>
+                        <button type="button" class="btn btn__secondary" id="btn-cancel">Hủy</button>
                     </div>
                 </form>
             </div>
