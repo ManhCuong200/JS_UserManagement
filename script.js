@@ -27,17 +27,31 @@ let dataForm = JSON.parse(localStorage.getItem("data")) || [];
 form.addEventListener("submit", function (e) {
   // ngăn reload form
   e.preventDefault();
+
+  let isValid = true;
+
+  //reset mảng lối
+  nameError.style.display = "none";
+  phoneError.style.display = "none";
+
   // check ô input name phải >= 2
   if (name.value.length < 2) {
     nameError.style.display = "block";
+    isValid = false;
   } else {
     nameError.style.display = "none";
   }
   // check ô input phone sdt phai 10-11 số
   if (phone.value.length < 10 || phone.value.length > 11) {
     phoneError.style.display = "block";
+    isValid = false;
   } else {
     phoneError.style.display = "none";
+  }
+
+  // nếu có lỗi thì thoát, không lưu vào localStorage
+  if (!isValid) {
+    return;
   }
   //lấy giá trị của name
   const nameValue = name.value;
