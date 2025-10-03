@@ -17,11 +17,13 @@
             <div class="handle">
                 <div class="form__section">
                     <div class="search__form">
-                        <input class="search__input" placeholder="🔍 Tìm kiếm theo tên hoặc email..." type="text" value>
+                        <input class="search__input" id="search" placeholder="🔍 Tìm kiếm theo tên hoặc email..."
+                            type="text" value>
                     </div>
                     <button class="btn btn-primary" id="add-users">Thêm Người Dùng Mới</button>
                 </div>
                 <div class="users">
+                    <div id="users-container"></div>
                     <div class="empty-state">
                         <h3>Chưa có người dùng nào</h3>
                         <p>Hãy thêm người dùng đầu tiên của bạn!</p>
@@ -32,7 +34,7 @@
         <dialog class="modal" id="modal-form">
             <div class="modal-content">
                 <div class="modal__header">
-                    <h2>Thêm người dùng mới</h2>
+                    <h2 id="modal-title">Thêm người dùng mới</h2>
                     <button class="close__btn" id="close-modal">×</button>
                 </div>
                 <form id="form">
@@ -57,6 +59,19 @@
                         <button type="button" class="btn btn__secondary" id="btn-cancel">Hủy</button>
                     </div>
                 </form>
+            </div>
+        </dialog>
+        <dialog class="modal" id="modal-delete">
+            <div class="modal__content">
+                <div class="modal__form">
+                    <h2>Xác nhận xóa</h2>
+                    <button class="close-btn" id="close__modal">×</button>
+                </div>
+                <p>Bạn có chắc chắn muốn xóa người dùng này không?</p>
+                <div class="btn__end">
+                    <button id="btn-delete" class="btn btn-danger">Xóa</button>
+                    <button id="btn-cancel2" class="btn btn-secondary">Hủy</button>
+                </div>
             </div>
         </dialog>
     </div>

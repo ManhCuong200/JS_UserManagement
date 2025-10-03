@@ -20,9 +20,27 @@ const phone = document.getElementById("phone-value");
 const nameError = document.getElementById("name-error");
 // lấy id lỗi trong class phone-error
 const phoneError = document.getElementById("phone-error");
+// lấy id users trong class users
+const usersContainer = document.getElementById("users-container");
+// đặt tên biến .emty-state
+const emptyState = document.querySelector(".empty-state");
+// lấy id modal-title
+const modalTitle = document.getElementById("modal-title");
+// lấy id btn-delete
+const btnDelete = document.getElementById("btn-delete");
+// lấy id modal-delete
+const modalDelete = document.getElementById("modal-delete");
+// lấy id btn-cancel2
+const btnCancel2 = document.getElementById("btn-cancel2");
+// lấy id close__modal
+const closemodal = document.getElementById("close__modal");
 // đặt tên biến data chứa form trong localstogare nếu rong thi []
 let dataForm = JSON.parse(localStorage.getItem("data")) || [];
 
+// đặt tên biến định danh khi edit null
+let isEdit = null;
+// đặt tên biến định danh khi xóa null
+let isDelete = null;
 // bắt sự kiện click form
 form.addEventListener("submit", function (e) {
   // ngăn reload form
@@ -55,30 +73,53 @@ form.addEventListener("submit", function (e) {
     return;
   }
 
-  //lấy giá trị của name
-  const nameValue = name.value;
-  //lấy giá trị của email
-  const emailValue = email.value;
-  //lấy giá trị của phone
-  const phoneValue = phone.value;
+  // nếu edit không null thì update user
+  if (isEdit !== null) {
+    // tìm người dùng theo id
+    const user = dataForm.find((item) => item.id === isEdit);
+    // update người dùng
+    user.name = name.value;
+    user.email = email.value;
+    user.phone = phone.value;
+    // reset id
+    isEdit = null;
+  } else {
+    //lấy giá trị của name
+    const nameValue = name.value;
+    //lấy giá trị của email
+    const emailValue = email.value;
+    //lấy giá trị của phone
+    const phoneValue = phone.value;
 
-  // tạo object
-  const data = {
-    id: Date.now(),
-    name: nameValue,
-    email: emailValue,
-    phone: phoneValue,
-  };
-  // them object vao mang
-  dataForm.push(data);
+    // tạo object
+    const data = {
+      id: Date.now(),
+      name: nameValue,
+      email: emailValue,
+      phone: phoneValue,
+    };
+    // them object vao mang
+    dataForm.push(data);
+  }
   // lưu mang vao localStorage
   localStorage.setItem("data", JSON.stringify(dataForm));
+  // closeModal đóng
+  modalForm.close();
+  // render
+  render();
   // reset form
   form.reset();
 });
 
 // bắt sự kiện click addUsers
 addUsers.addEventListener("click", function () {
+  isEdit = null;
+  form.reset();
+  nameError.style.display = "none";
+  phoneError.style.display = "none";
+
+  modalTitle.textContent = "Thêm Người Dùng Mới";
+  addUser.textContent = "Thêm người dùng";
   modalForm.showModal();
 });
 
@@ -90,15 +131,83 @@ closeModal.addEventListener("click", function () {
   modalForm.close();
 });
 
-// bắt sự kiện click addUser
-addUser.addEventListener("click", function () {
-  modalForm.showModal();
-});
-
 // bắt sự kiện click cancel
 cancel.addEventListener("click", function () {
   nameError.style.display = "none";
   phoneError.style.display = "none";
   form.reset();
   modalForm.close();
+});
+
+// Tạo function render data vào usersContainer
+function render() {
+  //check dataForm rong
+  if (dataForm.length === 0) {
+    emptyState.style.display = "block";
+  } else {
+    emptyState.style.display = "none";
+  }
+  usersContainer.innerHTML = "";
+  dataForm.forEach((item) => {
+    usersContainer.innerHTML += `
+              <div class="user-card">
+                <h3>${item.name}</h3>
+                <p>Email: ${item.email}</p>
+                <p>Phone: ${item.phone}</p>
+                <div class="user-actions">
+                  <button class="btn btn-primary" onclick="editUser(${item.id})">Edit</button
+                  ><button class="btn btn-danger" onclick="deleteUser(${item.id})">Delete</button>
+                </div>
+              </div>
+    `;
+  });
+}
+render();
+
+// tạo function delete
+function deleteUser(id) {
+  isDelete = id;
+  // hiện thị modal delete
+  modalDelete.show();
+  // bắt sự kiện click closemodal
+  closemodal.addEventListener("click", function () {
+    modalDelete.close();
+  });
+  // bắt sự kiện btnCancel2
+  btnCancel2.addEventListener("click", function () {
+    modalDelete.close();
+  });
+  // bắt sự kiện btnDelete
+  btnDelete.addEventListener("click", function () {
+    if (isDelete !== null) {
+      const index = dataForm.filter((item) => item.id === id);
+      dataForm.splice(index, 1);
+      localStorage.setItem("data", JSON.stringify(dataForm));
+      render();
+    }
+    isDelete = null;
+    modalDelete.close();
+  });
+}
+
+// tạo function edit
+function editUser(id) {
+  const user = dataForm.find((item) => item.id === id);
+  isEdit = id;
+  name.value = user.name;
+  email.value = user.email;
+  phone.value = user.phone;
+  // text bằng edit
+  modalTitle.textContent = "Edit User";
+  //text bằng save
+  addUser.textContent = "Save";
+  modalForm.showModal();
+}
+
+// đồng bộ storage khi có nhiều tab
+window.addEventListener("storage", function (e) {
+  if (e.key === "data") {
+    dataForm = JSON.parse(localStorage.getItem("data")) || [];
+    render();
+  }
 });
