@@ -34,9 +34,10 @@ const modalDelete = document.getElementById("modal-delete");
 const btnCancel2 = document.getElementById("btn-cancel2");
 // lấy id close__modal
 const closemodal = document.getElementById("close__modal");
+// lấy id search
+const searchBar = document.getElementById("search");
 // đặt tên biến data chứa form trong localstogare nếu rong thi []
 let dataForm = JSON.parse(localStorage.getItem("data")) || [];
-
 // đặt tên biến định danh khi edit null
 let isEdit = null;
 // đặt tên biến định danh khi xóa null
@@ -117,7 +118,6 @@ addUsers.addEventListener("click", function () {
   form.reset();
   nameError.style.display = "none";
   phoneError.style.display = "none";
-
   modalTitle.textContent = "Thêm Người Dùng Mới";
   addUser.textContent = "Thêm người dùng";
   modalForm.showModal();
@@ -142,13 +142,68 @@ cancel.addEventListener("click", function () {
 // Tạo function render data vào usersContainer
 function render() {
   //check dataForm rong
+
+  //tạo tên biến chứa giá trị của dataFrom trùng với giá trị của searchBar
+  const searchValue = searchBar.value.toLowerCase();
+  dataSearch = dataForm.filter((item) => {
+    return (
+      item.name.toLowerCase().includes(searchValue) ||
+      item.email.toLowerCase().includes(searchValue)
+    );
+  });
+
+  // if (dataForm.length === 0 && searchValue === "") {
+  //   emptyState.style.display = "block";
+  // } else {
+  //   emptyState.style.display = "none";
+  // }
+
+  // check dataSearch rong
+  // if (dataSearch.length === 0) {
+  //   emptyState.style.display = "block";
+  //   emptyState.innerHTML = `
+  //   <h3>Không tìm thấy kết quả cho"${searchValue}"</h3>
+  //   `;
+  // } else {
+  //   emptyState.style.display = "none";
+  // }
+
+  //nếu searchValue không rỗng và dataSearch rỗng
+  // if (searchValue !== "" && dataSearch.length === 0) {
+  //   emptyState.style.display = "block";
+  //   emptyState.innerHTML = `
+  //   <h3>Không tìm thấy kết quả cho"${searchValue}"</h3>
+  //   `;
+  // }
+
+  //nếu formData rỗng
   if (dataForm.length === 0) {
     emptyState.style.display = "block";
-  } else {
-    emptyState.style.display = "none";
+    //nếu dataSearch rỗng
+    if (dataSearch.length === 0) {
+      emptyState.style.display = "block";
+      emptyState.innerHTML = `
+        <h3>Chưa có người dùng nào</h3>
+        <p>Hãy thêm người dùng đầu tiên của bạn!</p>
+    `;
+    }
   }
+
+  //nếu formData khác rỗng
+  if (dataForm.length !== 0) {
+    //nếu dataSearch rỗng
+    if (dataSearch.length === 0) {
+      emptyState.style.display = "block";
+      emptyState.innerHTML = `
+    <h3>Không tìm thấy kết quả cho"${searchValue}"</h3>
+    `;
+    } else {
+      emptyState.style.display = "none";
+    }
+  }
+
   usersContainer.innerHTML = "";
-  dataForm.forEach((item) => {
+  dataSearch.forEach((item) => {
     usersContainer.innerHTML += `
               <div class="user-card">
                 <h3>${item.name}</h3>
@@ -210,4 +265,10 @@ window.addEventListener("storage", function (e) {
     dataForm = JSON.parse(localStorage.getItem("data")) || [];
     render();
   }
+});
+
+searchBar.addEventListener("input", function () {
+  // lấy giá trị của searchBar
+  const searchValue = searchBar.value.toLowerCase();
+  render(searchValue);
 });
